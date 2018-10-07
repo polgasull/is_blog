@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :find_post_id, only: [:show, :update, :edit, :destroy]
 
   def index
     @posts = Post.all.order("created_at DESC")
@@ -16,21 +17,16 @@ class PostsController < ApplicationController
   end
 
   def show
-    find_post_id
   end
 
   def update
-    find_post_id
-
     @post.update(post_params) ? (redirect_to @post) : (render "edit")
   end
 
   def edit
-    find_post_id
   end
 
   def destroy
-    find_post_id
     @post.destroy
 
     redirect_to posts_path
